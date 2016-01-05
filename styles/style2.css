@@ -1,0 +1,54 @@
+.slick-prev:before {
+  content: "\003c";
+  color: white;
+  font-size: 30px; 
+  /*margin-left: 20px;*/
+}
+.slick-next:before {
+  content: "\003e";
+  color: white;
+  font-size: 30px;
+  /*padding-right: 20px;*/
+}
+.slick-next {
+    right: 0px;
+}
+
+.slick-prev {
+    left: -10px;
+    z-index: 10
+}
+.image-wrap{
+    float:right;
+    margin-right:20px;
+    margin-top:10px;
+}
+.username{
+    /*border: 1px solid greenyellow;*/
+    float: right;
+    margin-right: 20px;
+    font-size: 15pt;
+    font-weight: bold;
+}
+.empfhelungen{
+    /*border: 1px solid greenyellow;*/    
+    float: right;
+    margin-right: 20px;
+    font-size: 15pt;
+    font-weight: bold;
+}
+.describe{
+    /*border: 1px solid greenyellow;*/
+    float: right;
+    margin-right: 20px;
+}
+.title{
+    float:right;
+    margin-right:20px;
+    margin-top:10px;
+    font-weight: bold;
+}
+#canvast{
+    -webkit-user-select: none;
+    z-index: 11;
+}

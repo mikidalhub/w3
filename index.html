@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wheel of Movies</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+         <script type="text/javascript" src="external/slick.js"></script>  
+         <script type="text/javascript" src="external/fabric.js"></script>  
+         <script src="http://cdnjs.cloudflare.com/ajax/libs/ocanvas/2.8.3/ocanvas.min.js"></script>
+         <!--<script type="text/javascript" src="external/fabric.require.js"></script>-->  
+         <!--<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>-->  
+        <script src="lib.js"></script>
+        <script src="main.js"></script>        
+       
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/slick-theme.css"/>  
+         <link rel="stylesheet" href="styles/font-awesome.min.css">
+        <link rel="stylesheet" href="styles/style2.css">
+         
+        <script>
+            $(document).ready(function(){
+                var initialSlide = 1; 
+                var $slider;                  
+                draw();  
+                $('.slick-wrapper').on('init', function(event, slick){                                       
+                    $(slick.$slides).each(function(){                        
+                        var akt= null;
+                        $(this).val(function() {                                
+                            akt = $(this).attr("data-slick-index");
+                            var video = $(this).children('video');
+                            if(parseInt(akt) === initialSlide){                                
+                                $(this).addClass('slick-center');
+                                $(this).attr('controls', 'controls');
+                                video.prop('muted', false);  
+                                video.prop('autoplay', true);
+                                video.load();
+                            }
+                        });
+                        
+                    });
+                });
+                var slick = $('.slick-wrapper').slick({
+                    centerMode: false,
+                    centerPadding: '50px',
+                    focusOnSelect: true,
+                    initialSlide: 0,
+                    slidesToShow: 5,
+                    arrows: true,  
+                    swipe: false,
+                    infinite: true,
+                    slidesToScroll: 1
+                });
+                var clicked = null;               
+                                                       
+                $(slick).on('afterChange', function(event, slick, currentSlide, nextSlide){ 
+                        var clickBool = false;
+                        $(slick.$slides).each(function(){
+                            var aktual = -1;                                         
+                            $(this).val(function() {                                
+                               aktual = $(this).attr("data-slick-index");
+                               if(clicked != null){                                    
+                                    if(clicked !== aktual){ 
+                                       $(this).children('video').removeAttr('controls');                               
+                                       $(this).children('video').prop('muted', true); 
+//                                       $(this).children('video').prop('autoplay', false); 
+                                    }else{ //this is the clicked item
+                                       $(this).children('video').prop('muted', false); 
+                                    }
+                                    clickBool = true;
+                                } else if(clicked == null) { //move away with arrows                                                                                                                                                                                   
+                                     if( parseInt(aktual) === currentSlide + 1 ){                                                                             
+                                        $(this).addClass('slick-center');
+                                        $(this).attr('controls', 'controls');
+                                        $(this).children('video').prop('muted', false);  
+//                                        $(this).children('video').prop('autoplay', true);
+//                                        $(this).children('video').load();
+                                    }else{
+                                        $(this).children('video').removeAttr('controls');
+                                        $(this).children('video').prop('muted', true); 
+//                                        $(this).children('video').prop('autoplay', false); 
+                                    }                                                                                                         
+                               }
+                            });                                                                                                      
+                       });
+                       if(clickBool){
+                           clicked = null;
+                       }
+                       
+                });
+                $('.slick-slide').on('click', function(event){   
+                            $(event.currentTarget).val(function() {                            
+                                clicked = $(event.currentTarget).attr("data-slick-index"); 
+                                console.log('clicked index:',clicked);
+                            }); 
+                            $(event.currentTarget).addClass('slick-center');
+                            $(event.target).attr('controls', 'controls');
+                });
+                $(".closex").click(function(){ 
+                    $( ".movie-detail-layer" ).css('visibility', 'hidden');
+                });
+                setTimeout(function(){
+                    $('.carousel').css({opacity: 0, visibility: "visible"}).animate({opacity: 1.0}, 3000);                    
+                },2000);
+            });
+            
+        </script>
+    </head>
+    <body>
+        
+        <div class="container-fluid">
+                <div class="wheel">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <canvas id="canvas" width="700" height="935"></canvas>                            
+                        </div>   
+                    </div>
+                </div>
+                <div class="wheelt">
+                    <div class="row">
+                        <div class="col-md-6" id="canvas-container">
+                            <!--<canvas id="canvast" width="700" height="890"></canvas>--> 
+                            <canvas id="canvast" width="600" height="320"></canvas>
+                        </div>   
+                    </div>
+                </div>
+
+                <div class="movie-detail-layer">                
+                    <div class="row ">
+                        <div class="closex">X</div>
+                    </div>
+                    <div class="row">                                                           
+                       <div class="image-wrap"><img alt="" src="" width="80" height="30"/></div>  
+                    </div>
+                    <div class="row">
+                        <!--<div class="username">[USER NAME]!</div>-->
+                        <div class="title"></div>
+                    </div>
+                    <div class="row">
+                        <div class="empfhelungen">Empfehlungen fur dir</div> 
+                    </div>
+                    <div class="row">
+                        <div class="describe">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
+                        </div> 
+                    </div>
+                </div>    
+                <div class="carousel">                          
+                    <div class="row ">
+                        <div class="col-md-12">
+                              <div class="slick-wrapper">
+                                   
+                                    <div>
+                                            <video preload="auto" width="320" height="170"  poster="images/antman.png"> 
+                                                <source src="videos/antman.mp4" type="video/mp4"/> 
+                                                <source src="videos/antman.ogv" type="video/ogg">  
+                                            </video></div>
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/avangers.png"> 
+                                                    <source src="videos/avangers.mp4" type="video/mp4"/>
+                                                    <source src="videos/avangers.ogv" type="video/ogg">                                                                                                      
+                                            </video></div> 
+                                    <div>
+                                            <video preload="auto" width="320" height="170"  poster="images/creed.png"> 
+                                                <source src="videos/creed.mp4" type="video/mp4"/> 
+                                                <source src="videos/creed.ogv" type="video/ogg"> 
+                                            </video></div>
+                                    <div>
+                                            <video preload="auto" width="320" height="170"  poster="images/furious.png"> 
+                                                <source src="videos/furious.mp4" type="video/mp4"/>
+                                                <source src="videos/furious.ogg" type="video/ogg"> 
+                                            </video></div>                                                                               
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/madmax.png"> 
+                                                    <source src="videos/madmax.mp4" type="video/mp4"/> 
+                                                    <source src="videos/madmax.ogg" type="video/ogg">                                                                                                       
+                                            </video></div>
+                                    <div>
+                                            <video preload="auto" width="320" height="170"  poster="images/hunger.png"> 
+                                                <source src="videos/hunger.mp4" type="video/mp4"/>  
+                                                <source src="videos/hunger.ogg" type="video/ogg">
+                                            </video></div> 
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/mission.png"> 
+                                                    <source src="videos/mission.mp4" type="video/mp4"/>    
+                                                    <source src="videos/mission.ogg" type="video/ogg">                                                      
+                                            </video></div>  
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/revenant.png"> 
+                                                    <source src="videos/revenant.mp4" type="video/mp4"/> 
+                                                    <source src="videos/revenant.ogg" type="video/ogg">                                                            
+                                            </video></div>   
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/spectre.png"> 
+                                                    <source src="videos/spectre.mp4" type="video/mp4"/>  
+                                                    <source src="videos/spectre.ogg" type="video/ogg">                                                                   
+                                            </video></div>  
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/starwars.png"> 
+                                                    <source src="videos/starwars.mp4" type="video/mp4"/>      
+                                                    <source src="videos/starwars.ogg" type="video/ogg">                                                 
+                                            </video></div>  
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/taken.png"> 
+                                                    <source src="videos/taken3.mp4" type="video/mp4"/>
+                                                    <source src="videos/taken.ogg" type="video/ogg">                                                       
+                                            </video></div>  
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/terminator.png"> 
+                                                    <source src="videos/terminator.mp4" type="video/mp4"/> 
+                                                    <source src="videos/terminator.ogg" type="video/ogg">                                                      
+                                            </video></div>
+                                    <div>
+                                            <video preload="auto" width="320" height="170" poster="images/tomorrowland.png"> 
+                                                    <source src="videos/tomorrowland.mp4" type="video/mp4"/> 
+                                                    <source src="videos/tomorrowland.ogg" type="video/ogg">                                                       
+                                            </video></div>
+                              </div>   
+                        </div>                        
+                    </div>                      
+                </div> 
+        </div>
+    </body>
+    
+</html>

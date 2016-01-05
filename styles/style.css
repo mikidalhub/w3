@@ -1,0 +1,116 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 11, 2015, 11:26:35 AM
+    Author     : Admin
+*/
+
+body {
+ // background: azure; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, rgba(0,0,0,0.8) , rgba(0,0,0,0.1)); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, rgba(0,0,0,0.8) , rgba(0,0,0,0.1)); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, rgba(0,0,0,0.8)  , rgba(0,0,0,0.1)); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, rgba(0,0,0, 0.9) , rgba(0,0,0,0.9)); /* Standard syntax */
+/*  background: -webkit-linear-gradient(left, #1a82f7 , #2F2727);  For Safari 5.1 to 6.0 
+  background: -o-linear-gradient(right, #1a82f7 , #2F2727);  For Opera 11.1 to 12.0 
+  background: -moz-linear-gradient(right, #1a82f7 , #2F2727);  For Firefox 3.6 to 15 
+  background: linear-gradient(to right, #1a82f7 , #2F2727);  Standard syntax */
+}
+.control{
+    /*border: 1px solid green;*/
+    float:left;
+    margin-left: -200px;
+}
+.titleh{
+    color:#efe;
+}
+.table-attr{
+    width:50%;
+}
+.popovercontainer{
+    display: none;
+}
+
+.slider-design{
+    position: absolute;
+}
+
+.wheelt{
+    position: absolute;
+    left: 80px;
+    top: 350px;
+    z-index: 3;
+    /*visibility: hidden;*/
+    
+}
+
+.wheel{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 2;
+    /*visibility: hidden;*/
+}
+.carousel {
+    position: absolute;
+    left: 0px;
+    top: 410px;
+    z-index: 3;
+    visibility: hidden;
+}
+.fabtriangle{
+    /*border: 1px solid greenyellow;*/
+    position: absolute;
+    left: 80px;
+    top: 350px;
+    z-index: 2;
+}
+.movie-detail-layer{
+    background-color: rgba(8,8,8,0.5);
+    border: 2px solid white;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    width: 400px;
+    height: 150px;
+    z-index: 2;
+    color: #fff;
+    padding-left: 20px;
+    visibility: hidden;
+}
+
+.slick-prev:before, .slick-next:before{
+    color:red;
+}
+/* Styles go here */
+
+.slick-track {
+  margin: 0 auto;
+}
+.slick-slide {
+  width: 200px;  
+  transform: scale(0.8);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+}
+.slick-slide.slick-center {
+ transform: scale(1.1);
+ -webkit-transition: 0.5s ease-in-out;
+ -moz-transition: 0.5s ease-in-out;
+ -o-transition: 0.5s ease-in-out;
+  /*border: 2px solid grey;*/
+  border: none;
+}
+.closex{
+    margin-top:-26px;
+    margin-right:13px;
+    font-weight: bold;
+    font-size: 16pt;
+    cursor: pointer;
+    float:right;
+}
+
